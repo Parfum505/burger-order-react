@@ -1,7 +1,9 @@
 import React, {Component} from "react";
-import Auxil from "./../../hoc/Auxiliary";
-import Burger from "./../../components/Burger/Burger";
+import Auxil from "../../hoc/Auxiliary";
+import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
+import Modal from "../../components/UI/Modal/Modal";
+import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 
 const INGREDIENT_PRICES = {
     salad: 0.5 ,
@@ -18,9 +20,19 @@ class BurgerBuilder extends Component {
             cheese: 0,
             meat: 0
         },
-        totalPrice: 4
+        totalPrice: 4,
+        purchasable: false,
+        buying: false
     }
 
+    buyHandler = () => {
+        this.setState({buying: true});
+    }
+    updatePurchaseState = (ingredients) => {
+        const sum = Object.values(ingredients)
+                    .reduce((total, curr) => total + curr, 0);
+        this.setState({purchasable: sum > 0})
+    }
     addIngredientHandler = (type) => {
         const updatedCount = this.state.ingredients[type] + 1;
         const updatedIngredients = {
@@ -29,6 +41,7 @@ class BurgerBuilder extends Component {
         updatedIngredients[type] = updatedCount;
         const newPrice = Math.round((this.state.totalPrice + INGREDIENT_PRICES[type]) * 100) / 100;
         this.setState({totalPrice: newPrice, ingredients: updatedIngredients});
+        this.updatePurchaseState(updatedIngredients);
     }
     removeIngredientHandler = (type) => {
         const updatedCount = this.state.ingredients[type] - 1;
@@ -41,15 +54,22 @@ class BurgerBuilder extends Component {
         updatedIngredients[type] = updatedCount;
         const newPrice = Math.round((this.state.totalPrice - INGREDIENT_PRICES[type]) * 100) / 100;
         this.setState({totalPrice: newPrice, ingredients: updatedIngredients});
+        this.updatePurchaseState(updatedIngredients);
     }
+
     render() {
         return (
             <Auxil>
+                <Modal show={this.state.buying}>
+                    <OrderSummary ingredients={this.state.ingredients}/>
+                </Modal>
                 <Burger ingredients={this.state.ingredients}/>
                 <BuildControls addIngredients={this.addIngredientHandler}
                                removeIngredients={this.removeIngredientHandler}
                                ingredients={this.state.ingredients}
                                totalPrice={this.state.totalPrice}
+                               purchasable={this.state.purchasable}
+                               buy={this.buyHandler}
                 />
             </Auxil>
         );

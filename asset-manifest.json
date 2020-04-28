@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/burger-order-react/static/css/main.44c6e700.chunk.css",
-    "main.js": "/burger-order-react/static/js/main.9c4083eb.chunk.js",
-    "main.js.map": "/burger-order-react/static/js/main.9c4083eb.chunk.js.map",
+    "main.js": "/burger-order-react/static/js/main.7b6e95e7.chunk.js",
+    "main.js.map": "/burger-order-react/static/js/main.7b6e95e7.chunk.js.map",
     "runtime-main.js": "/burger-order-react/static/js/runtime-main.992ed215.js",
     "runtime-main.js.map": "/burger-order-react/static/js/runtime-main.992ed215.js.map",
     "static/js/2.6966e1f6.chunk.js": "/burger-order-react/static/js/2.6966e1f6.chunk.js",
     "static/js/2.6966e1f6.chunk.js.map": "/burger-order-react/static/js/2.6966e1f6.chunk.js.map",
     "index.html": "/burger-order-react/index.html",
-    "precache-manifest.5948b633b4ecb1b36408594c2cd573b9.js": "/burger-order-react/precache-manifest.5948b633b4ecb1b36408594c2cd573b9.js",
+    "precache-manifest.2b6f18ba7a51842ae73f1719fb059441.js": "/burger-order-react/precache-manifest.2b6f18ba7a51842ae73f1719fb059441.js",
     "service-worker.js": "/burger-order-react/service-worker.js",
     "static/css/main.44c6e700.chunk.css.map": "/burger-order-react/static/css/main.44c6e700.chunk.css.map",
     "static/js/2.6966e1f6.chunk.js.LICENSE.txt": "/burger-order-react/static/js/2.6966e1f6.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.992ed215.js",
     "static/js/2.6966e1f6.chunk.js",
     "static/css/main.44c6e700.chunk.css",
-    "static/js/main.9c4083eb.chunk.js"
+    "static/js/main.7b6e95e7.chunk.js"
   ]
 }

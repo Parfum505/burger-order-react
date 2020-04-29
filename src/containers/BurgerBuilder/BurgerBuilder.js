@@ -20,7 +20,7 @@ class BurgerBuilder extends Component {
             cheese: 0,
             meat: 0
         },
-        totalPrice: 4,
+        totalPrice: 4.00,
         purchasable: false,
         buying: false
     }
@@ -45,7 +45,7 @@ class BurgerBuilder extends Component {
             ...this.state.ingredients,
         }
         updatedIngredients[type] = updatedCount;
-        const newPrice = Math.round((this.state.totalPrice + INGREDIENT_PRICES[type]) * 100) / 100;
+        const newPrice = (this.state.totalPrice + INGREDIENT_PRICES[type]).toFixed(2);
         this.setState({totalPrice: newPrice, ingredients: updatedIngredients});
         this.updatePurchaseState(updatedIngredients);
     }
@@ -58,7 +58,7 @@ class BurgerBuilder extends Component {
             ...this.state.ingredients,
         }
         updatedIngredients[type] = updatedCount;
-        const newPrice = Math.round((this.state.totalPrice - INGREDIENT_PRICES[type]) * 100) / 100;
+        const newPrice = (this.state.totalPrice - INGREDIENT_PRICES[type]).toFixed(2);
         this.setState({totalPrice: newPrice, ingredients: updatedIngredients});
         this.updatePurchaseState(updatedIngredients);
     }
@@ -70,7 +70,7 @@ class BurgerBuilder extends Component {
                     <OrderSummary ingredients={this.state.ingredients}
                                   buyCancel={this.buyCancelHandler}
                                   buyContinue={this.buyContinueHandler}
-                    />
+                                  totalPrice={this.state.totalPrice} />
                 </Modal>
                 <Burger ingredients={this.state.ingredients}/>
                 <BuildControls addIngredients={this.addIngredientHandler}
@@ -78,8 +78,7 @@ class BurgerBuilder extends Component {
                                ingredients={this.state.ingredients}
                                totalPrice={this.state.totalPrice}
                                purchasable={this.state.purchasable}
-                               buy={this.buyHandler}
-                />
+                               buy={this.buyHandler} />
             </Auxil>
         );
     }

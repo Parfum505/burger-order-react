@@ -45,7 +45,7 @@ class BurgerBuilder extends Component {
             ...this.state.ingredients,
         }
         updatedIngredients[type] = updatedCount;
-        const newPrice = (this.state.totalPrice + INGREDIENT_PRICES[type]).toFixed(2);
+        const newPrice = (this.state.totalPrice + INGREDIENT_PRICES[type]).toFixed(2) * 1;
         this.setState({totalPrice: newPrice, ingredients: updatedIngredients});
         this.updatePurchaseState(updatedIngredients);
     }
@@ -58,7 +58,7 @@ class BurgerBuilder extends Component {
             ...this.state.ingredients,
         }
         updatedIngredients[type] = updatedCount;
-        const newPrice = (this.state.totalPrice - INGREDIENT_PRICES[type]).toFixed(2);
+        const newPrice = (this.state.totalPrice - INGREDIENT_PRICES[type]).toFixed(2) * 1;
         this.setState({totalPrice: newPrice, ingredients: updatedIngredients});
         this.updatePurchaseState(updatedIngredients);
     }

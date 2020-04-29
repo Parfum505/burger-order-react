@@ -10,7 +10,7 @@
     top: 30%;
     box-sizing: border-box;
     transition: all 0.3s ease-out;
-    transform: translateY(-100vh);
+    transform: translateY(-300vh);
 }
 .Active {
     transform: translateY(0);

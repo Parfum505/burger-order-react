@@ -20,4 +20,4 @@ const SideMenu = (props) => {
         </Auxil>
     );
 }
-export default SideMenu;
+export default React.memo(SideMenu);

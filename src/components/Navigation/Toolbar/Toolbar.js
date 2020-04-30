@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./Toolbar.css";
 import Logo from "../Logo/Logo";
 import NavItems from "../NavItems/NavItems";
-import MobileMenuBtn from "./mobileMenuBtn/mobileMenuBtn";
+import MobileMenuBtn from "../MobileMenuBtn/MobileMenuBtn";
 
 const Toolbar = (props) => (
     <header className={classes.Toolbar}>
@@ -15,4 +15,4 @@ const Toolbar = (props) => (
         </nav>
     </header>
 );
-export default Toolbar;
+export default React.memo(Toolbar);

@@ -8,7 +8,7 @@
 }
 
 .BreadTop {
-    height: 50px;
+    height: 40px;
     width: 80%;
     background: linear-gradient(#bc581e, #e27b36);
     border-radius: 50% 50% 0 0;
@@ -99,7 +99,7 @@
 
 .Salad {
     width: 85%;
-    height: calc(4px + 1vw);
+    height: calc(4px + 1.3vw);
     margin: 2px auto;
     background: linear-gradient(#228c1d, #91ce50);
     border-radius: 20px;
@@ -113,12 +113,12 @@
 }
 @media (min-width: 450px) {
     .BreadTop {
-        height: 60px;
+        height: 55px;
     }
 }
 @media (min-width: 769px) {
     .BreadTop {
-        height: 95px;
+        height: 75px;
     }
     .BreadBottom {
         height: 45px;
@@ -129,7 +129,7 @@
 }
 @media (min-width: 992px) {
     .BreadTop {
-        height: 110px;
+        height: 85px;
     }
     .BreadBottom {
         height: 55px;

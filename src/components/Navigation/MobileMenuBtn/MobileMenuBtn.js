@@ -1,5 +1,5 @@
 import React from "react";
-import classes from "./mobileMenuBtn.css";
+import classes from "./MobileMenuBtn.css";
 
 const MobileMenuBtn = (props) => (
     <div className={classes.MobileMenuBtn} onClick={props.clicked}>

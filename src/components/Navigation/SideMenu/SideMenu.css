@@ -1,0 +1,25 @@
+.SideMenu {
+    position: fixed;
+    width: 280px;
+    max-width: 80%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 200;
+    background: #fff;
+    padding: 32px 16px;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-out;
+}
+.Open {
+    transform: translateX(0);
+}
+.Logo {
+    height: 11%;
+    margin-bottom: 30px;
+}
+@media (min-width: 500px) {
+    .SideMenu {
+        display: none;
+    }
+}

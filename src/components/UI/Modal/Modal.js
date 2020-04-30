@@ -3,7 +3,7 @@ import classes from "./Modal.css"
 import Backdrop from "../Backdrop/Backdrop";
 import Auxil from "../../../hoc/Auxiliary";
 
-const modal = (props) => {
+const Modal = (props) => {
     const active = props.show ? classes.Active : '';
     return (
         <Auxil>
@@ -13,4 +13,4 @@ const modal = (props) => {
     );
 };
 
-export default modal;
+export default Modal;

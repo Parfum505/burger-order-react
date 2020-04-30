@@ -2,7 +2,7 @@ import React from "react";
 import Auxil from "../../../hoc/Auxiliary";
 import Button from "../../../components/UI/Button/Button";
 
-const orderSummary = (props) => {
+const OrderSummary = (props) => {
     const ingredientsSummary = Object.entries(props.ingredients)
         .map((item, i) => {
             return (
@@ -25,4 +25,4 @@ const orderSummary = (props) => {
     );
 };
 
-export default orderSummary;
+export default OrderSummary;

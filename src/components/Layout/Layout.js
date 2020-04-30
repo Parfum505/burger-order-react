@@ -1,15 +1,29 @@
-import React from "react";
+import React, { Component } from "react";
 import Auxil from "../../hoc/Auxiliary";
 import classes from "./Layout.css";
 import Toolbar from "../Navigation/Toolbar/Toolbar";
 import SideMenu from "../Navigation/SideMenu/SideMenu";
 
-const layout = (props) => (
-    <Auxil>
-        <Toolbar />
-        <SideMenu />
-        <main className={classes.Content}>{props.children}</main>
-    </Auxil>
-)
+class Layout extends Component {
+    state = {
+        showMobileMenu: false
+    }
+    closeMobileMenuHandler = () => {
+        this.setState({showMobileMenu: false})
+    }
+    openMobileMenuHandler = () => {
+        this.setState({showMobileMenu: true})
+    }
+    render() {
+        return (
+            <Auxil>
+                <Toolbar openMenu={this.openMobileMenuHandler}/>
+                <SideMenu show={this.state.showMobileMenu}
+                          closeMenu={this.closeMobileMenuHandler}/>
+                <main className={classes.Content}>{this.props.children}</main>
+            </Auxil>
+        );
+    }
+}
 
-export default layout;
+export default Layout;

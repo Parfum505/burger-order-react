@@ -2,10 +2,11 @@ import React from "react";
 import classes from "./Toolbar.css";
 import Logo from "../Logo/Logo";
 import NavItems from "../NavItems/NavItems";
+import MobileMenuBtn from "./mobileMenuBtn/mobileMenuBtn";
 
-const toolbar = (props) => (
+const Toolbar = (props) => (
     <header className={classes.Toolbar}>
-        <div>Menu</div>
+        <MobileMenuBtn clicked={props.openMenu} />
         <div className={classes.Logo}>
             <Logo/>
         </div>
@@ -14,4 +15,4 @@ const toolbar = (props) => (
         </nav>
     </header>
 );
-export default toolbar;
+export default Toolbar;

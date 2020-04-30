@@ -11,7 +11,9 @@
     padding: 0 20px;
     z-index: 90;
 }
-.Logo,
+.Logo {
+    height: 80%;
+}
 .Toolbar nav {
     display: none;
 }
@@ -19,10 +21,6 @@
 @media (min-width: 500px) {
     .Toolbar nav {
         height: 100%;
-        display: block;
-    }
-    .Logo {
-        height: 80%;
         display: block;
     }
 }

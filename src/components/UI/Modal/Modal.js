@@ -10,6 +10,9 @@ class Modal extends Component {
 
     render() {
         let modalClasses = [classes.Modal];
+        if (this.props.show) {
+            modalClasses.push(classes.Active);
+        }
         if (this.props.addedClasses) {
             for (let addClass of this.props.addedClasses) {
                 modalClasses.push(classes[addClass]);

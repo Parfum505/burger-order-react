@@ -12,6 +12,13 @@
     transition: all 0.3s ease-out;
     transform: translateY(-300vh);
 }
+.Loading {
+    background-color: transparent;
+    border: 0;
+    box-shadow: none;
+    transition: none;
+    transform: translateY(0);
+}
 .Active {
     transform: translateY(0);
 }

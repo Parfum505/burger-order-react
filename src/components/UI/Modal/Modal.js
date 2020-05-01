@@ -5,16 +5,21 @@ import Auxil from "../../../hoc/Auxiliary";
 
 class Modal extends Component {
     shouldComponentUpdate(nextProps, nextState, nextContext) {
-        return nextProps.show !== this.props.show;
+        return nextProps.show !== this.props.show || nextProps.children !== this.props.children;
     }
 
     render() {
-        const modalClasses = this.props.show ? `${classes.Modal} ${classes.Active}` : `${classes.Modal}`;
+        let modalClasses = [classes.Modal];
+        if (this.props.addedClasses) {
+            for (let addClass of this.props.addedClasses) {
+                modalClasses.push(classes[addClass]);
+            }
+        }
 
         return (
             <Auxil>
                 <Backdrop show={this.props.show} clicked={this.props.modalClosed}/>
-                <div className={modalClasses}>{this.props.children}</div>
+                <div className={modalClasses.join(" ")}>{this.props.children}</div>
             </Auxil>
         );
     }

@@ -12,17 +12,18 @@
 }
 @media (min-width: 481px) {
     .Burger {
-        width: 400px;
+        width: 100%;
+        max-width: 400px;
     }
 }
 @media (min-width: 769px) {
     .Burger {
-        width: 550px;
+        max-width: 550px;
         padding: 96px 0 40px;
     }
 }
-@media (min-width: 992px) {
-    .Burger {
-        width: 700px;
-    }
-}
+/*@media (min-width: 992px) {*/
+/*    .Burger {*/
+/*        width: 700px;*/
+/*    }*/
+/*}*/

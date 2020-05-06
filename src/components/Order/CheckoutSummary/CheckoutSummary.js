@@ -2,6 +2,7 @@ import React from "react";
 import Burger from "../../Burger/Burger";
 import Button from "../../UI/Button/Button";
 import classes from "./CheckoutSummary.css"
+import Auxil from "../../../hoc/Auxiliary";
 
 const CheckoutSummary = (props) => {
     return (
@@ -10,8 +11,9 @@ const CheckoutSummary = (props) => {
             <div>
                 <Burger ingredients={props.ingredients}/>
             </div>
-            <Button btnType="Danger" >CANCEL</Button>
-            <Button btnType="Success">CONTINUE</Button>
+            <p><strong>Total price: {(props.totalPrice).toFixed(2)}&nbsp;$</strong></p>
+            <Button btnType="Danger" clicked={props.checkoutCancel}>CANCEL</Button>
+            <Button btnType="Success" clicked={props.checkoutContinue}>CONTINUE</Button>
         </div>
     );
 }

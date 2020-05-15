@@ -1,26 +1,26 @@
 .Burger {
-    margin: 0 auto;
-    padding: 76px 0 20px;
-    text-align: center;
-    font-weight: bold;
-    font-size: 1.2rem;
-    width: 80%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  margin: 0 auto;
+  padding: 20px 0;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 @media (min-width: 481px) {
-    .Burger {
-        width: 100%;
-        max-width: 400px;
-    }
+  .Burger {
+    width: 100%;
+    max-width: 400px;
+  }
 }
 @media (min-width: 769px) {
-    .Burger {
-        max-width: 550px;
-        padding: 96px 0 40px;
-    }
+  .Burger {
+    max-width: 550px;
+    padding: 96px 0 40px;
+  }
 }
 /*@media (min-width: 992px) {*/
 /*    .Burger {*/

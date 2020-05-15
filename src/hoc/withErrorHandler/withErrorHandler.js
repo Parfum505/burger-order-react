@@ -3,7 +3,7 @@ import Modal from "../../components/UI/Modal/Modal";
 import Auxil from "../Auxiliary";
 
 const withErrorHandler = (WrappedComponent, axios) => {
-  return class Any extends Component {
+  return class WithError extends Component {
     state = {
       error: null,
     };
@@ -11,16 +11,23 @@ const withErrorHandler = (WrappedComponent, axios) => {
     componentDidMount() {
       this.reqInterceptor = axios.interceptors.request.use(
         (request) => {
+          console.log(request);
           this.setState({ error: null });
           return request;
         },
         (error) => {
+          console.log(error);
           this.setState({ error: error });
         }
       );
       this.respInterceptor = axios.interceptors.response.use(
-        (resp) => resp,
+        (resp) => {
+          console.log(resp);
+          this.setState({ error: null });
+          return resp;
+        },
         (error) => {
+          console.log(error);
           this.setState({ error: error });
         }
       );

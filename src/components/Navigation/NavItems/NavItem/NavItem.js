@@ -1,19 +1,18 @@
 import React from "react";
 import classes from "./NavItem.css";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
 
 const NavItem = (props) => (
   <li className={classes.NavItem}>
-    <Link to={props.link} className={props.active ? classes.active : null}>
+    <NavLink to={props.link} exact activeClassName={classes.active}>
       {props.children}
-    </Link>
+    </NavLink>
   </li>
 );
 
 NavItem.propTypes = {
   link: PropTypes.string,
-  active: PropTypes.bool,
   children: PropTypes.any,
 };
 

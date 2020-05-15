@@ -1,14 +1,13 @@
 .CheckoutSummary {
-    text-align: center;
-    width: 80%;
-    margin: 56px auto 30px;
+  text-align: center;
+  width: 80%;
+  margin: 30px auto;
 }
 .CheckoutSummary h1 {
-    margin-bottom: -30px;
-    font-size: 1.4rem;
+  font-size: 1.4rem;
 }
 @media (min-width: 768px) {
-    .CheckoutSummary h1 {
-        font-size: 2rem;
-    }
+  .CheckoutSummary h1 {
+    font-size: 2rem;
+  }
 }

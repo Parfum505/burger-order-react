@@ -33,7 +33,7 @@ class Modal extends Component {
 }
 Modal.propTypes = {
   addedClasses: PropTypes.array,
-  show: PropTypes.bool,
+  show: PropTypes.any,
   modalClosed: PropTypes.func,
   children: PropTypes.any,
 };

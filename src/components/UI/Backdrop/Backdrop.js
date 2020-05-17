@@ -17,7 +17,7 @@ Backdrop.propTypes = {
   addClass: PropTypes.array,
 };
 Backdrop.propTypes = {
-  show: PropTypes.bool,
+  show: PropTypes.any,
   clicked: PropTypes.func.isRequired,
 };
 

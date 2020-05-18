@@ -7,10 +7,6 @@
     box-shadow: 0 2px 3px #cccccc;
     padding: 10px;
 }
-.Input {
-    display: block;
-    margin-bottom: 15px;
-}
 @media (min-width: 992px) {
     .ContactInfo {
         align-self: center;

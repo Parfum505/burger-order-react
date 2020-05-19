@@ -3,20 +3,24 @@
   padding: 10px;
 }
 .Label {
-    font-weight: bold;
-    margin-bottom: 8px;
-    display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+  display: block;
 }
 .InputElement {
-    outline: none;
-    border: 1px solid #ccc;
-    background: white;
-    font: inherit;
-    padding: 6px 10px;
-    display: block;
-    width: 100%;
+  outline: none;
+  border: 1px solid #ccc;
+  background: white;
+  font: inherit;
+  padding: 6px 10px;
+  display: block;
+  width: 100%;
 }
 .InputElement:focus {
-    outline: none;
-    background: #ccc;
+  outline: none;
+  background: #f4f4f4;
+}
+.Invalid {
+  border-color: red;
+  background: rgb(248, 176, 168);
 }

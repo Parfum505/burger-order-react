@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 
 const Button = (props) => (
   <button
+    disabled={props.disabled}
     className={[classes.Button, classes[props.btnType]].join(" ")}
     onClick={props.clicked}
   >
@@ -14,5 +15,6 @@ Button.propTypes = {
   btnType: PropTypes.string,
   clicked: PropTypes.func.isRequired,
   children: PropTypes.any,
+  disabled: PropTypes.bool,
 };
 export default Button;

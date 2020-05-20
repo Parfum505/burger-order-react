@@ -6,7 +6,7 @@ const Input = (props) => {
   let inputElement = null;
   const inputClasses = [classes.InputElement];
   props.touched && props.invalid ? inputClasses.push(classes.Invalid) : null;
-  switch (props.elementType) {
+  switch (props.elementType) { 
     case "input":
       inputElement = (
         <input

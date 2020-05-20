@@ -13,10 +13,9 @@ const Backdrop = (props) => {
     <div className={addedClasses.join(" ")} onClick={props.clicked}></div>
   ) : null;
 };
+
 Backdrop.propTypes = {
   addClass: PropTypes.array,
-};
-Backdrop.propTypes = {
   show: PropTypes.any,
   clicked: PropTypes.func.isRequired,
 };

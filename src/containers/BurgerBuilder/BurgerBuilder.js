@@ -11,16 +11,8 @@ import Spinner from "../../components/UI/Spinner/Spinner";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 import PropTypes from "prop-types";
 
-const INGREDIENT_PRICES = {
-  salad: 0.5,
-  bacon: 0.7,
-  meat: 1.3,
-  cheese: 0.4,
-};
-
 class BurgerBuilder extends Component {
   state = {
-    purchasable: false,
     buying: false,
     loading: false,
     error: false,
@@ -61,32 +53,7 @@ class BurgerBuilder extends Component {
       (total, curr) => total + curr,
       0
     );
-    this.setState({ purchasable: sum > 0 });
-  };
-  addIngredientHandler = (type) => {
-    const updatedCount = this.state.ingredients[type] + 1;
-    const updatedIngredients = {
-      ...this.state.ingredients,
-    };
-    updatedIngredients[type] = updatedCount;
-    const newPrice =
-      (this.state.totalPrice + INGREDIENT_PRICES[type]).toFixed(2) * 1;
-    this.setState({ totalPrice: newPrice, ingredients: updatedIngredients });
-    this.updatePurchaseState(updatedIngredients);
-  };
-  removeIngredientHandler = (type) => {
-    const updatedCount = this.state.ingredients[type] - 1;
-    if (updatedCount < 0) {
-      return;
-    }
-    const updatedIngredients = {
-      ...this.state.ingredients,
-    };
-    updatedIngredients[type] = updatedCount;
-    const newPrice =
-      (this.state.totalPrice - INGREDIENT_PRICES[type]).toFixed(2) * 1;
-    this.setState({ totalPrice: newPrice, ingredients: updatedIngredients });
-    this.updatePurchaseState(updatedIngredients);
+    return sum > 0;
   };
 
   render() {
@@ -107,7 +74,7 @@ class BurgerBuilder extends Component {
             removeIngredients={this.props.removeIngredientHandler}
             ingredients={this.props.ingredients}
             totalPrice={this.props.totalPrice}
-            purchasable={this.state.purchasable}
+            purchasable={this.updatePurchaseState(this.props.ingredients)}
             buy={this.buyHandler}
           />
         </Auxil>

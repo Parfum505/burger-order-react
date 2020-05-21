@@ -31,8 +31,7 @@ CheckoutSummary.propTypes = {
   totalPrice: PropTypes.number,
   checkoutCancel: PropTypes.func.isRequired,
   checkoutContinue: PropTypes.func.isRequired,
-};
-CheckoutSummary.propTypes = {
   activeContactInfo: PropTypes.bool,
 };
+
 export default CheckoutSummary;

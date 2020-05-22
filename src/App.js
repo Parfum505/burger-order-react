@@ -5,12 +5,15 @@ import Checkout from "./containers/Checkout/Checkout";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Orders from "./containers/Orders/Orders";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
-import reducer from "./store/reducer";
+import { createStore, applyMiddleware, compose } from "redux";
+import burgerBuilderReducer from "./store/reducers/burgerBuilder";
+import thunk from "redux-thunk";
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
-  reducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  burgerBuilderReducer,
+  composeEnhancers(applyMiddleware(thunk))
 );
 
 function App() {

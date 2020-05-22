@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import * as actionTypes from "../../store/actions";
 import Auxil from "../../hoc/Auxiliary";
 import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
@@ -10,21 +9,15 @@ import axios from "../../axios-orders";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 import PropTypes from "prop-types";
+import * as burgerBuilderActions from "../../store/actions/index";
 
 class BurgerBuilder extends Component {
   state = {
     buying: false,
-    loading: false,
-    error: false,
   };
 
   componentDidMount() {
-    // axios
-    //   .get("https://burger-order-react.firebaseio.com/ingredients.json")
-    //   .then((resp) => {
-    //     this.setState({ ingredients: resp.data });
-    //   })
-    //   .catch(() => this.setState({ error: true }));
+    this.props.initIngredientsHandler();
   }
 
   buyCancelHandler = () => {
@@ -45,10 +38,15 @@ class BurgerBuilder extends Component {
   };
 
   render() {
-    const errorStyle = { textAlign: "center", marginTop: 90, color: "red" };
+    const errorStyle = {
+      textAlign: "center",
+      marginTop: 90,
+      color: "red",
+      fontWeight: "bold",
+    };
     let addClasses = [],
       orderSummary = null;
-    let burger = this.state.error ? (
+    let burger = this.props.error ? (
       <p style={errorStyle}>Ingredients can&apos;t be loaded.</p>
     ) : (
       <Spinner />
@@ -76,9 +74,7 @@ class BurgerBuilder extends Component {
         />
       );
     }
-    if (this.state.loading) {
-      addClasses.push("Loading");
-    }
+
     return (
       <Auxil>
         <Modal
@@ -95,27 +91,29 @@ class BurgerBuilder extends Component {
 }
 BurgerBuilder.propTypes = {
   history: PropTypes.any,
-  ingredients: PropTypes.object.isRequired,
+  ingredients: PropTypes.object,
   totalPrice: PropTypes.number.isRequired,
   addIngredientHandler: PropTypes.func.isRequired,
   removeIngredientHandler: PropTypes.func.isRequired,
+  initIngredientsHandler: PropTypes.func.isRequired,
+  error: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => {
   return {
     ingredients: state.ingredients,
     totalPrice: state.totalPrice,
+    error: state.error,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     addIngredientHandler: (ingName) =>
-      dispatch({ type: actionTypes.ADD_INGREDIENT, ingredientName: ingName }),
+      dispatch(burgerBuilderActions.addIngredient(ingName)),
     removeIngredientHandler: (ingName) =>
-      dispatch({
-        type: actionTypes.REMOVE_INGREDIENT,
-        ingredientName: ingName,
-      }),
+      dispatch(burgerBuilderActions.removeIngredient(ingName)),
+    initIngredientsHandler: () =>
+      dispatch(burgerBuilderActions.initIngredients()),
   };
 };
 export default connect(

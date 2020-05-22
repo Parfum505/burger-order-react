@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "216783cc85a2bca5d99cc5c6662d42a1",
+    "revision": "3f0dcfcdfac21f435bba206f9c4bb2c4",
     "url": "/burger-order-react/index.html"
   },
   {
-    "revision": "77b543c13e6e6c11866c",
-    "url": "/burger-order-react/static/css/main.d1d44e2a.chunk.css"
+    "revision": "61bb290b08b16a504dfa",
+    "url": "/burger-order-react/static/css/main.85030b0e.chunk.css"
   },
   {
-    "revision": "fae624e3bff3ab8f120c",
-    "url": "/burger-order-react/static/js/2.f86d60f3.chunk.js"
+    "revision": "2cf0c8cc35915abd12ea",
+    "url": "/burger-order-react/static/js/2.a665e819.chunk.js"
   },
   {
     "revision": "c64c486544348f10a6d6c716950bc223",
-    "url": "/burger-order-react/static/js/2.f86d60f3.chunk.js.LICENSE.txt"
+    "url": "/burger-order-react/static/js/2.a665e819.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "77b543c13e6e6c11866c",
-    "url": "/burger-order-react/static/js/main.145c78e8.chunk.js"
+    "revision": "61bb290b08b16a504dfa",
+    "url": "/burger-order-react/static/js/main.ec563690.chunk.js"
   },
   {
     "revision": "5b9e1e0f9a082f6efaed",

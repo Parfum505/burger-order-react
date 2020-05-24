@@ -9,7 +9,7 @@ import axios from "../../axios-orders";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 import PropTypes from "prop-types";
-import * as burgerBuilderActions from "../../store/actions/index";
+import * as actions from "../../store/actions/index";
 
 class BurgerBuilder extends Component {
   state = {
@@ -24,6 +24,7 @@ class BurgerBuilder extends Component {
     this.setState({ buying: false });
   };
   buyContinueHandler = () => {
+    this.props.onInitPurchase();
     this.props.history.push("/checkout");
   };
   buyHandler = () => {
@@ -96,6 +97,7 @@ BurgerBuilder.propTypes = {
   addIngredientHandler: PropTypes.func.isRequired,
   removeIngredientHandler: PropTypes.func.isRequired,
   initIngredientsHandler: PropTypes.func.isRequired,
+  onInitPurchase: PropTypes.func.isRequired,
   error: PropTypes.bool.isRequired,
 };
 
@@ -108,12 +110,11 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    addIngredientHandler: (ingName) =>
-      dispatch(burgerBuilderActions.addIngredient(ingName)),
+    addIngredientHandler: (ingName) => dispatch(actions.addIngredient(ingName)),
     removeIngredientHandler: (ingName) =>
-      dispatch(burgerBuilderActions.removeIngredient(ingName)),
-    initIngredientsHandler: () =>
-      dispatch(burgerBuilderActions.initIngredients()),
+      dispatch(actions.removeIngredient(ingName)),
+    initIngredientsHandler: () => dispatch(actions.initIngredients()),
+    onInitPurchase: () => dispatch(actions.purchaseInit()),
   };
 };
 export default connect(

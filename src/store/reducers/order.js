@@ -3,10 +3,17 @@ import * as actionTypes from "../actions/actionTypes";
 const initialState = {
   orders: [],
   loading: false,
+  purchased: false,
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.PURCHASE_INIT: {
+      return {
+        ...state,
+        purchased: false,
+      };
+    }
     case actionTypes.PURCHASE_BURGER_SUCCESS: {
       return {
         ...state,
@@ -15,6 +22,7 @@ const reducer = (state = initialState, action) => {
           id: action.orderId,
         }),
         loading: false,
+        purchased: true,
       };
     }
     case actionTypes.PURCHASE_BURGER_ERROR: {
@@ -27,6 +35,25 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         loading: true,
+      };
+    }
+    case actionTypes.FETCH_ORDERS_START: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+    case actionTypes.FETCH_ORDERS_SUCCESS: {
+      return {
+        ...state,
+        orders: action.orders,
+        loading: false,
+      };
+    }
+    case actionTypes.FETCH_ORDERS_ERROR: {
+      return {
+        ...state,
+        loading: false,
       };
     }
     default:

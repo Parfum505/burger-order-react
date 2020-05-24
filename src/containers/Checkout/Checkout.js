@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import CheckoutSummary from "../../components/Order/CheckoutSummary/CheckoutSummary";
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import ContactInfo from "./ContactInfo/ContactInfo";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -20,34 +20,38 @@ class Checkout extends Component {
   };
 
   render() {
-    return (
-      <>
-        <CheckoutSummary
-          ingredients={this.props.ingredients}
-          checkoutCancel={this.checkoutCancelHandler}
-          checkoutContinue={this.checkoutContinueHandler}
-          totalPrice={this.props.totalPrice}
-          activeContactInfo={this.state.activeContactInfo}
-        />
-        <Route
-          path={this.props.match.path + "/contact-info"}
-          component={ContactInfo}
-        />
-      </>
-    );
+    let summary = <Redirect to="/" />;
+    if (this.props.ingredients) {
+      summary = (
+        <>
+          <CheckoutSummary
+            ingredients={this.props.ingredients}
+            checkoutCancel={this.checkoutCancelHandler}
+            checkoutContinue={this.checkoutContinueHandler}
+            totalPrice={this.props.totalPrice}
+            activeContactInfo={this.state.activeContactInfo}
+          />
+          <Route
+            path={this.props.match.path + "/contact-info"}
+            component={ContactInfo}
+          />
+        </>
+      );
+    }
+    return summary;
   }
 }
 Checkout.propTypes = {
   match: PropTypes.any,
   history: PropTypes.any,
-  totalPrice: PropTypes.number.isRequired,
-  ingredients: PropTypes.object.isRequired,
+  totalPrice: PropTypes.number,
+  ingredients: PropTypes.object,
 };
 
 const mapStateToProps = (state) => {
   return {
-    ingredients: state.ingredients,
-    totalPrice: state.totalPrice,
+    ingredients: state.burgerBuilder.ingredients,
+    totalPrice: state.burgerBuilder.totalPrice,
   };
 };
 export default connect(mapStateToProps)(Checkout);

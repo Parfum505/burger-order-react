@@ -1,7 +1,23 @@
 .Order {
-    width: 100%;
-    border: 1px solid #eeeeee;
-    box-shadow: 0 2px 3px #cccccc;
-    padding: 10px;
-    margin: 10px auto;
+  width: 100%;
+  border: 1px solid #eeeeee;
+  box-shadow: 0 2px 3px #cccccc;
+  padding: 10px;
+  margin: 10px auto;
+}
+.Ingredient {
+  text-transform: capitalize;
+  display: inline-block;
+  color: #40a4c8;
+  padding: 5px 8px;
+  font-weight: bold;
+}
+.Order p {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+.Order button {
+  margin: 0;
 }

@@ -71,3 +71,28 @@ export const fetchOrders = () => {
       });
   };
 };
+export const deleteOrderError = (error) => {
+  return {
+    type: actionTypes.DELETE_ORDER_ERROR,
+    error: error,
+  };
+};
+export const deleteOrder = (id) => {
+  return {
+    type: actionTypes.DELETE_ORDER,
+    orderId: id,
+  };
+};
+export const fetchDeleteOrder = (id) => {
+  return (dispatch) => {
+    axios
+      .delete("/orders/" + id + ".json")
+      .then((res) => {
+        console.log(res);
+        dispatch(deleteOrder(id));
+      })
+      .catch((error) => {
+        dispatch(deleteOrderError(error));
+      });
+  };
+};

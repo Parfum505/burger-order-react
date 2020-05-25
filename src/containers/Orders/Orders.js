@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Order from "../../components/Order/Order";
+import classes from "./Orders.css";
 import axios from "../../axios-orders";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 import { connect } from "react-redux";
@@ -13,12 +14,17 @@ class Orders extends Component {
   }
   render() {
     return (
-      <div style={{ margin: "auto" }}>
+      <div className={classes.Orders}>
         {this.props.loading ? (
           <Spinner />
         ) : this.props.orders && this.props.orders.length ? (
           this.props.orders.map((order) => (
-            <Order key={order.id} order={order} />
+            <Order
+              key={order.id}
+              order={order}
+              id={order.id}
+              clicked={() => console.log(order.id)}
+            />
           ))
         ) : null}
       </div>

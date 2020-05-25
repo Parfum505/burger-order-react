@@ -1,4 +1,5 @@
 import * as actionTypes from "../actions/actionTypes";
+import { updateObject } from "../utility";
 
 const initialState = {
   orders: [],
@@ -6,66 +7,51 @@ const initialState = {
   purchased: false,
 };
 
+const deleteOrder = (state, action) => {
+  const newOrders = state.orders.filter((order) => order.id !== action.orderId);
+  return updateObject(state, {
+    orders: newOrders,
+  });
+};
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.PURCHASE_INIT: {
-      return {
-        ...state,
+      return updateObject(state, {
         purchased: false,
-      };
+      });
     }
     case actionTypes.PURCHASE_BURGER_SUCCESS: {
-      return {
-        ...state,
-        orders: state.orders.concat({
-          ...action.orderData,
-          id: action.orderId,
-        }),
+      const newOrder = updateObject(action.orderData, {
+        id: action.orderId,
+      });
+      return updateObject(state, {
+        orders: state.orders.concat(newOrder),
         loading: false,
         purchased: true,
-      };
+      });
     }
-    case actionTypes.PURCHASE_BURGER_ERROR: {
-      return {
-        ...state,
-        loading: false,
-      };
-    }
-    case actionTypes.PURCHASE_BURGER_START: {
-      return {
-        ...state,
-        loading: true,
-      };
-    }
+    case actionTypes.PURCHASE_BURGER_START:
     case actionTypes.FETCH_ORDERS_START: {
-      return {
-        ...state,
+      return updateObject(state, {
         loading: true,
-      };
+      });
     }
     case actionTypes.FETCH_ORDERS_SUCCESS: {
-      return {
-        ...state,
+      return updateObject(state, {
         orders: action.orders,
         loading: false,
-      };
-    }
-    case actionTypes.FETCH_ORDERS_ERROR: {
-      return {
-        ...state,
-        loading: false,
-      };
-    }
-    case actionTypes.DELETE_ORDER: {
-      const newOrders = state.orders.filter(
-        (order) => order.id !== action.orderId
-      );
-      return {
-        ...state,
-        orders: newOrders,
-      };
+      });
     }
     case actionTypes.DELETE_ORDER_ERROR:
+    case actionTypes.PURCHASE_BURGER_ERROR:
+    case actionTypes.FETCH_ORDERS_ERROR: {
+      return updateObject(state, {
+        loading: false,
+      });
+    }
+    case actionTypes.DELETE_ORDER: {
+      return deleteOrder(state, action);
+    }
     default:
       return state;
   }

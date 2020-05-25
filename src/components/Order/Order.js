@@ -4,19 +4,38 @@ import classes from "./Order.css";
 import PropTypes from "prop-types";
 import Button from "../UI/Button/Button";
 import * as actions from "../../store/actions/index";
-import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
-import axios from "../../axios-orders";
+import styled from "styled-components";
+
+const StyledOrder = styled.li`
+  &.fade-enter {
+    opacity: 0;
+  }
+
+  &.fade-enter-active {
+    opacity: 1;
+  }
+
+  &.fade-exit {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  &.fade-exit-active {
+    opacity: 0;
+    transform: translateX(1000px);
+  }
+`;
 
 const Order = (props) => {
   const [disableBtn, setDisableBtn] = useState(false);
   const onClicked = () => {
     setDisableBtn(true);
-    props.onFetchDeleteOrders(props.id);
+    props.onFetchDeleteOrders(props.order.id);
   };
   return (
-    <div className={classes.Order}>
+    <StyledOrder className={classes.Order} key={props.order.id}>
       <div>
-        Ingredients:{" "}
+        Ingredients:&nbsp;
         {Object.entries(props.order.ingredients).map((ingredient, i) => (
           <div
             className={classes.Ingredient}
@@ -32,12 +51,11 @@ const Order = (props) => {
           Delete
         </Button>
       </p>
-    </div>
+    </StyledOrder>
   );
 };
 Order.propTypes = {
   order: PropTypes.object.isRequired,
-  id: PropTypes.string.isRequired,
   onFetchDeleteOrders: PropTypes.func.isRequired,
 };
 
@@ -46,7 +64,4 @@ const mapDispatchToProps = (dispatch) => {
     onFetchDeleteOrders: (id) => dispatch(actions.fetchDeleteOrder(id)),
   };
 };
-export default connect(
-  null,
-  mapDispatchToProps
-)(withErrorHandler(Order, axios));
+export default connect(null, mapDispatchToProps)(Order);

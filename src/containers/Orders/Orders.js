@@ -7,28 +7,30 @@ import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
 import PropTypes from "prop-types";
 import Spinner from "../../components/UI/Spinner/Spinner";
+import TransitionGroup from "react-transition-group/TransitionGroup";
+import CSSTransition from "react-transition-group/CSSTransition";
 
 class Orders extends Component {
   componentDidMount() {
     this.props.onFetchOrders();
   }
   render() {
-    return (
-      <div className={classes.Orders}>
-        {this.props.loading ? (
-          <Spinner />
-        ) : this.props.orders && this.props.orders.length ? (
-          this.props.orders.map((order) => (
-            <Order
-              key={order.id}
-              order={order}
-              id={order.id}
-              clicked={() => console.log(order.id)}
-            />
-          ))
-        ) : null}
-      </div>
-    );
+    let orders = null;
+    if (this.props.loading) {
+      orders = <Spinner />;
+    }
+    if (this.props.orders && this.props.orders.length) {
+      orders = (
+        <TransitionGroup component="ul" className={classes.List}>
+          {this.props.orders.map((order) => (
+            <CSSTransition key={order.id} classNames="fade" timeout={300}>
+              <Order order={order} />
+            </CSSTransition>
+          ))}
+        </TransitionGroup>
+      );
+    }
+    return <div className={classes.Orders}>{orders}</div>;
   }
 }
 Orders.propTypes = {

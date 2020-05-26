@@ -1,23 +1,25 @@
 {
   "files": {
-    "main.css": "/burger-order-react/static/css/main.20cdf3ea.chunk.css",
-    "main.js": "/burger-order-react/static/js/main.cfa85119.chunk.js",
-    "main.js.map": "/burger-order-react/static/js/main.cfa85119.chunk.js.map",
+    "main.css": "/burger-order-react/static/css/main.f9c831c4.chunk.css",
+    "main.js": "/burger-order-react/static/js/main.d0cce318.chunk.js",
+    "main.js.map": "/burger-order-react/static/js/main.d0cce318.chunk.js.map",
     "runtime-main.js": "/burger-order-react/static/js/runtime-main.992ed215.js",
     "runtime-main.js.map": "/burger-order-react/static/js/runtime-main.992ed215.js.map",
-    "static/js/2.80ba4a69.chunk.js": "/burger-order-react/static/js/2.80ba4a69.chunk.js",
-    "static/js/2.80ba4a69.chunk.js.map": "/burger-order-react/static/js/2.80ba4a69.chunk.js.map",
+    "static/js/2.e8502cac.chunk.js": "/burger-order-react/static/js/2.e8502cac.chunk.js",
+    "static/js/2.e8502cac.chunk.js.map": "/burger-order-react/static/js/2.e8502cac.chunk.js.map",
     "index.html": "/burger-order-react/index.html",
-    "precache-manifest.92385495e1abc6e7ec58c4ce557af07e.js": "/burger-order-react/precache-manifest.92385495e1abc6e7ec58c4ce557af07e.js",
+    "precache-manifest.3505cae0a4e19748e788dcd2bac825ee.js": "/burger-order-react/precache-manifest.3505cae0a4e19748e788dcd2bac825ee.js",
     "service-worker.js": "/burger-order-react/service-worker.js",
-    "static/css/main.20cdf3ea.chunk.css.map": "/burger-order-react/static/css/main.20cdf3ea.chunk.css.map",
-    "static/js/2.80ba4a69.chunk.js.LICENSE.txt": "/burger-order-react/static/js/2.80ba4a69.chunk.js.LICENSE.txt",
-    "static/media/burger-logo.png": "/burger-order-react/static/media/burger-logo.b8503d26.png"
+    "static/css/main.f9c831c4.chunk.css.map": "/burger-order-react/static/css/main.f9c831c4.chunk.css.map",
+    "static/js/2.e8502cac.chunk.js.LICENSE.txt": "/burger-order-react/static/js/2.e8502cac.chunk.js.LICENSE.txt",
+    "static/media/burger-logo.png": "/burger-order-react/static/media/burger-logo.b8503d26.png",
+    "static/media/login.svg": "/burger-order-react/static/media/login.6ab6cd51.svg",
+    "static/media/logout.svg": "/burger-order-react/static/media/logout.d4ad0c4f.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.992ed215.js",
-    "static/js/2.80ba4a69.chunk.js",
-    "static/css/main.20cdf3ea.chunk.css",
-    "static/js/main.cfa85119.chunk.js"
+    "static/js/2.e8502cac.chunk.js",
+    "static/css/main.f9c831c4.chunk.css",
+    "static/js/main.d0cce318.chunk.js"
   ]
 }

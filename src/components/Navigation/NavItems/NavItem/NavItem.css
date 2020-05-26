@@ -1,40 +1,52 @@
 .NavItem {
-    margin: 0;
-    padding: 0;
-    display: block;
-    width: 100%;
+  margin: 0;
+  padding: 0;
+  display: block;
+  width: 100%;
 }
 .NavItem a {
-    display: block;
-    color: #8F5C2C;
-    text-decoration: none;
-    padding: 10px;
+  color: #8f5c2c;
+  text-decoration: none;
+  padding: 10px;
+  display: flex;
+  align-items: center;
 }
 .NavItem a:hover,
 .NavItem a:active,
 .NavItem a.active {
-    color: #40A4C8;
+  color: #40a4c8;
 }
 @media (min-width: 500px) {
-    .NavItem {
-        display: flex;
-        align-items: center;
-        height: 100%;
-        width: auto;
-    }
-    .NavItem a {
-        display: block;
-        height: 100%;
-        color: #fff;
-        text-decoration: none;
-        padding: 16px 10px;
-        border-bottom: 4px solid transparent;
-    }
-    .NavItem a:hover,
-    .NavItem a:active,
-    .NavItem a.active {
-        background-color: #8F5C2C;
-        border-bottom-color: #40A4C8;
-        color: #fff;
-    }
+  .NavItem {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: auto;
+  }
+  .NavItem a {
+    height: 100%;
+    color: #fff;
+    text-decoration: none;
+    padding: 16px 10px;
+    border-bottom: 4px solid transparent;
+  }
+  .NavItem a:hover,
+  .NavItem a:active,
+  .NavItem a.active {
+    background-color: #8f5c2c;
+    border-bottom-color: #40a4c8;
+    color: #fff;
+  }
+}
+@media (max-width: 499px) {
+  .NavItem a img {
+    filter: invert(38%) sepia(5%) saturate(6119%) hue-rotate(347deg)
+      brightness(97%) contrast(88%);
+  }
+  .NavItem a:hover img,
+  .NavItem a:active img,
+  .NavItem a.active img {
+    filter: invert(50%) sepia(89%) saturate(313%) hue-rotate(150deg)
+      brightness(96%) contrast(91%);
+  }
 }

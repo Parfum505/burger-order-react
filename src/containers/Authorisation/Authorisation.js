@@ -4,9 +4,7 @@ import Button from "../../components/UI/Button/Button";
 import classes from "./Authorisation.css";
 import * as actions from "../../store/actions";
 import { connect } from "react-redux";
-import axios from "axios";
-import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
-// import Spinner from "../../components/UI/Spinner/Spinner";
+import Spinner from "../../components/UI/Spinner/Spinner";
 import PropTypes from "prop-types";
 
 class Authorisation extends Component {
@@ -44,6 +42,7 @@ class Authorisation extends Component {
       },
     },
     formIsValid: false,
+    isSingUp: true,
   };
   checkValidation(value, rules) {
     let isValid = true;
@@ -88,29 +87,64 @@ class Authorisation extends Component {
     event.preventDefault();
     this.props.onAuth(
       this.state.controls.email.value,
-      this.state.controls.password.value
+      this.state.controls.password.value,
+      this.state.isSingUp
     );
+  };
+  switchModeHandler = (event) => {
+    event.preventDefault();
+    this.setState((prevState) => {
+      return { isSingUp: !prevState.isSingUp };
+    });
   };
   render() {
     const formElementsArray = Object.entries(this.state.controls);
+    let form = (
+      <form action="" onSubmit={this.submitHandler}>
+        <Button btnType="SuccessBlue" clicked={this.switchModeHandler}>
+          {this.state.isSingUp ? (
+            <div>
+              SINGUP&nbsp;/&nbsp;
+              <span className={classes.Dissabled}>SINGIN</span>
+            </div>
+          ) : (
+            <div>
+              <span className={classes.Dissabled}>SINGUP</span>
+              &nbsp;/&nbsp;SINGIN
+            </div>
+          )}
+        </Button>
+        {formElementsArray.map((element) => (
+          <Input
+            key={element[0]}
+            elementType={element[1].elementType}
+            elementConfig={element[1].elementConfig}
+            value={element[1].value}
+            changed={(event) => this.inputChangedHandler(event, element[0])}
+            invalid={!element[1].validation.valid}
+            touched={element[1].touched}
+          />
+        ))}
+        <Button btnType="Success" disabled={!this.state.formIsValid}>
+          SUBMIT
+        </Button>
+      </form>
+    );
+    if (this.props.loading) {
+      form = <Spinner />;
+    }
+    let errorMessage = null;
+    if (this.props.error) {
+      errorMessage = (
+        <p className={classes.ErrorMessage}>
+          {this.props.error.message.split("_").join(" ")}
+        </p>
+      );
+    }
     return (
       <div className={classes.Authorisation}>
-        <form action="" onSubmit={this.submitHandler}>
-          {formElementsArray.map((element) => (
-            <Input
-              key={element[0]}
-              elementType={element[1].elementType}
-              elementConfig={element[1].elementConfig}
-              value={element[1].value}
-              changed={(event) => this.inputChangedHandler(event, element[0])}
-              invalid={!element[1].validation.valid}
-              touched={element[1].touched}
-            />
-          ))}
-          <Button btnType="Success" disabled={!this.state.formIsValid}>
-            SUBMIT
-          </Button>
-        </form>
+        {form}
+        {errorMessage}
       </div>
     );
   }
@@ -118,13 +152,20 @@ class Authorisation extends Component {
 
 Authorisation.propTypes = {
   onAuth: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+  error: PropTypes.string,
+};
+
+const mapStateToProps = (state) => {
+  return {
+    loading: state.auth.loading,
+    error: state.auth.error,
+  };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAuth: (email, passw) => dispatch(actions.authorisation(email, passw)),
+    onAuth: (email, passw, isSingUp) =>
+      dispatch(actions.authorisation(email, passw, isSingUp)),
   };
 };
-export default connect(
-  null,
-  mapDispatchToProps
-)(withErrorHandler(Authorisation, axios));
+export default connect(mapStateToProps, mapDispatchToProps)(Authorisation);

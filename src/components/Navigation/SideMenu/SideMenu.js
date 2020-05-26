@@ -18,6 +18,7 @@ const SideMenu = (props) => {
         className={[classes.SideMenu, props.show ? classes.Open : null].join(
           " "
         )}
+        onClick={props.closeMenu}
       >
         <div className={classes.Logo}>
           <Logo />

@@ -21,7 +21,9 @@
 .Success {
   color: #5c9210;
 }
-
 .Danger {
   color: #944317;
+}
+.SuccessBlue {
+  color: #40a4c8;
 }

@@ -1,13 +1,18 @@
 .NavItems {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: block;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: block;
+}
+.LoginIcon {
+  display: block;
+  width: 30px;
+  height: 30px;
 }
 @media (min-width: 500px) {
-    .NavItems {
-        display: flex;
-        align-items: center;
-        height: 100%;
-    }
+  .NavItems {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
 }

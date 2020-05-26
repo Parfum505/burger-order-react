@@ -7,6 +7,13 @@
   box-shadow: 0 2px 3px #cccccc;
   padding: 10px;
 }
+.ErrorMessage {
+  font-weight: bold;
+  color: red;
+}
+.Dissabled {
+  color: #ccc;
+}
 @media (min-width: 992px) {
   .Authorisation {
     align-self: center;

@@ -14,3 +14,7 @@ export const FETCH_ORDERS_ERROR = "FETCH_ORDERS_ERROR";
 
 export const DELETE_ORDER = "DELETE_ORDER";
 export const DELETE_ORDER_ERROR = "DELETE_ORDER_ERROR";
+
+export const AUTH_START = "AUTH_START";
+export const AUTH_SUCCESS = "AUTH_SUCCESS";
+export const AUTH_ERROR = "AUTH_ERROR";

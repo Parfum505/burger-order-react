@@ -6,8 +6,8 @@
 }
 .LoginIcon {
   display: block;
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
 }
 @media (min-width: 500px) {
   .NavItems {

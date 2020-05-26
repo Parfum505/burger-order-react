@@ -19,7 +19,7 @@ const authError = (error) => {
     error: error,
   };
 };
-const logout = () => {
+export const logout = () => {
   return {
     type: actionTypes.AUTH_LOGOUT,
   };
@@ -48,7 +48,6 @@ export const authorisation = (email, password, isSingUp) => {
     axios
       .post(url, authData)
       .then((response) => {
-        console.log(response);
         dispatch(authSuccess(response.data));
         dispatch(checkAuthTimeout(response.data.expiresIn));
       })

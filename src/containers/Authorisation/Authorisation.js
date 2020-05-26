@@ -42,7 +42,7 @@ class Authorisation extends Component {
       },
     },
     formIsValid: false,
-    isSingUp: true,
+    isSingUp: false,
   };
   checkValidation(value, rules) {
     let isValid = true;
@@ -104,13 +104,13 @@ class Authorisation extends Component {
         <Button btnType="SuccessBlue" clicked={this.switchModeHandler}>
           {this.state.isSingUp ? (
             <div>
-              SINGUP&nbsp;/&nbsp;
-              <span className={classes.Dissabled}>SINGIN</span>
+              <span className={classes.Dissabled}>SingIN</span>
+              &nbsp;/&nbsp;SingUP
             </div>
           ) : (
             <div>
-              <span className={classes.Dissabled}>SINGUP</span>
-              &nbsp;/&nbsp;SINGIN
+              SingIN&nbsp;/&nbsp;
+              <span className={classes.Dissabled}>SingUP</span>
             </div>
           )}
         </Button>

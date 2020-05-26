@@ -12,15 +12,15 @@ import CSSTransition from "react-transition-group/CSSTransition";
 
 class Orders extends Component {
   componentDidMount() {
-    this.props.onFetchOrders();
+    this.props.onFetchOrders(this.props.token);
   }
   render() {
     let orders = null;
     if (this.props.loading) {
       orders = <Spinner />;
     }
-    if (this.props.orders && this.props.orders.length) {
-      orders = (
+    if (this.props.orders) {
+      orders = this.props.orders.length ? (
         <TransitionGroup component="ul" className={classes.List}>
           {this.props.orders.map((order) => (
             <CSSTransition key={order.id} classNames="fade" timeout={300}>
@@ -28,6 +28,8 @@ class Orders extends Component {
             </CSSTransition>
           ))}
         </TransitionGroup>
+      ) : (
+        <p>You don&apos;t have any orders yet.</p>
       );
     }
     return <div className={classes.Orders}>{orders}</div>;
@@ -37,16 +39,18 @@ Orders.propTypes = {
   onFetchOrders: PropTypes.func.isRequired,
   orders: PropTypes.array,
   loading: PropTypes.bool,
+  token: PropTypes.any,
 };
 const mapStateToProps = (state) => {
   return {
     orders: state.order.orders,
     loading: state.order.loading,
+    token: state.auth.token,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    onFetchOrders: () => dispatch(actions.fetchOrders()),
+    onFetchOrders: (token) => dispatch(actions.fetchOrders(token)),
   };
 };
 export default connect(

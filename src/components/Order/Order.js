@@ -30,7 +30,7 @@ const Order = (props) => {
   const [disableBtn, setDisableBtn] = useState(false);
   const onClicked = () => {
     setDisableBtn(true);
-    props.onFetchDeleteOrders(props.order.id);
+    props.onFetchDeleteOrders(props.order.id, props.token);
   };
   return (
     <StyledOrder className={classes.Order} key={props.order.id}>
@@ -57,11 +57,16 @@ const Order = (props) => {
 Order.propTypes = {
   order: PropTypes.object.isRequired,
   onFetchDeleteOrders: PropTypes.func.isRequired,
+  token: PropTypes.any,
 };
-
-const mapDispatchToProps = (dispatch) => {
+const mapStateToProps = (state) => {
   return {
-    onFetchDeleteOrders: (id) => dispatch(actions.fetchDeleteOrder(id)),
+    token: state.auth.token,
   };
 };
-export default connect(null, mapDispatchToProps)(Order);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onFetchDeleteOrders: (id,token) => dispatch(actions.fetchDeleteOrder(id,token)),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Order);

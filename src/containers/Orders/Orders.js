@@ -12,7 +12,7 @@ import CSSTransition from "react-transition-group/CSSTransition";
 
 class Orders extends Component {
   componentDidMount() {
-    this.props.onFetchOrders(this.props.token);
+    this.props.onFetchOrders(this.props.token, this.props.userId);
   }
   render() {
     let orders = null;
@@ -39,18 +39,21 @@ Orders.propTypes = {
   onFetchOrders: PropTypes.func.isRequired,
   orders: PropTypes.array,
   loading: PropTypes.bool,
-  token: PropTypes.any,
+  token: PropTypes.string.isRequired,
+  userId: PropTypes.string.isRequired,
 };
 const mapStateToProps = (state) => {
   return {
     orders: state.order.orders,
     loading: state.order.loading,
     token: state.auth.token,
+    userId: state.auth.userId,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    onFetchOrders: (token) => dispatch(actions.fetchOrders(token)),
+    onFetchOrders: (token, userId) =>
+      dispatch(actions.fetchOrders(token, userId)),
   };
 };
 export default connect(

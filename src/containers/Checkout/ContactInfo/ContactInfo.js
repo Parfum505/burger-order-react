@@ -112,6 +112,7 @@ class ContactInfo extends Component {
     const order = {
       ingredients: this.props.ingredients,
       price: this.props.totalPrice,
+      userId: this.props.userId,
       orderData: formData,
     };
     this.props.onOrderBurger(order, this.props.token);
@@ -193,6 +194,7 @@ ContactInfo.propTypes = {
   onOrderBurger: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   token: PropTypes.any,
+  userId: PropTypes.any,
 };
 
 const mapStateToProps = (state) => {
@@ -201,11 +203,13 @@ const mapStateToProps = (state) => {
     totalPrice: state.burgerBuilder.totalPrice,
     loading: state.order.loading,
     token: state.auth.token,
+    userId: state.auth.userId,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    onOrderBurger: (order, token) => dispatch(action.purchaseBurger(order, token)),
+    onOrderBurger: (order, token) =>
+      dispatch(action.purchaseBurger(order, token)),
   };
 };
 export default connect(

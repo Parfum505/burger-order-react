@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import * as actions from "../../store/actions";
 import Auxil from "../Auxiliary";
 import classes from "./Layout.css";
 import Toolbar from "../../components/Navigation/Toolbar/Toolbar";
@@ -9,6 +11,9 @@ class Layout extends Component {
   state = {
     showMobileMenu: false,
   };
+  componentDidMount() {
+    this.props.onTryAutoSingIn();
+  }
   closeMobileMenuHandler = () => {
     this.setState({ showMobileMenu: false });
   };
@@ -30,5 +35,12 @@ class Layout extends Component {
 }
 Layout.propTypes = {
   children: PropTypes.any,
+  onTryAutoSingIn: PropTypes.func.isRequired,
 };
-export default Layout;
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onTryAutoSingIn: () => dispatch(actions.authCheckState()),
+  };
+};
+export default connect(null, mapDispatchToProps)(Layout);

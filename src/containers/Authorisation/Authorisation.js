@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import Input from "../../components/UI/Input/Input";
 import Button from "../../components/UI/Button/Button";
 import classes from "./Authorisation.css";
@@ -6,6 +7,7 @@ import * as actions from "../../store/actions";
 import { connect } from "react-redux";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import PropTypes from "prop-types";
+import { countIngredients } from "../../store/utility";
 
 class Authorisation extends Component {
   state = {
@@ -44,6 +46,11 @@ class Authorisation extends Component {
     formIsValid: false,
     isSingUp: false,
   };
+  componentDidMount() {
+    if (countIngredients(this.props.ingredients) === 0) {
+      this.props.setRiderectPath("/");
+    }
+  }
   checkValidation(value, rules) {
     let isValid = true;
     if (rules.required) {
@@ -104,13 +111,13 @@ class Authorisation extends Component {
         <Button btnType="SuccessBlue" clicked={this.switchModeHandler}>
           {this.state.isSingUp ? (
             <div>
-              <span className={classes.Dissabled}>SingIN</span>
-              &nbsp;/&nbsp;SingUP
+              <span className={classes.Dissabled}>SING&nbsp;IN</span>
+              &nbsp;/&nbsp;SING&nbsp;UP
             </div>
           ) : (
             <div>
-              SingIN&nbsp;/&nbsp;
-              <span className={classes.Dissabled}>SingUP</span>
+              SING&nbsp;IN&nbsp;/&nbsp;
+              <span className={classes.Dissabled}>SING&nbsp;UP</span>
             </div>
           )}
         </Button>
@@ -141,8 +148,13 @@ class Authorisation extends Component {
         </p>
       );
     }
+    let authRedirect = null;
+    if (this.props.isAuth) {
+      authRedirect = <Redirect to={this.props.authRedirectPath} />;
+    }
     return (
       <div className={classes.Authorisation}>
+        {authRedirect}
         {form}
         {errorMessage}
       </div>
@@ -152,20 +164,28 @@ class Authorisation extends Component {
 
 Authorisation.propTypes = {
   onAuth: PropTypes.func.isRequired,
+  setRiderectPath: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
+  isAuth: PropTypes.bool.isRequired,
   error: PropTypes.string,
+  authRedirectPath: PropTypes.string.isRequired,
+  ingredients: PropTypes.object,
 };
 
 const mapStateToProps = (state) => {
   return {
     loading: state.auth.loading,
     error: state.auth.error,
+    isAuth: state.auth.token !== null,
+    authRedirectPath: state.auth.authRedirectPath,
+    ingredients: state.burgerBuilder.ingredients,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     onAuth: (email, passw, isSingUp) =>
       dispatch(actions.authorisation(email, passw, isSingUp)),
+    setRiderectPath: (path) => dispatch(actions.setAuthRedirectPath(path)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Authorisation);

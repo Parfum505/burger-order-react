@@ -6,11 +6,11 @@ const authStart = () => {
     type: actionTypes.AUTH_START,
   };
 };
-const authSuccess = (data) => {
+const authSuccess = (idToken, localId) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
-    idToken: data.idToken,
-    userId: data.localId,
+    idToken: idToken,
+    userId: localId,
   };
 };
 const authError = (error) => {
@@ -20,6 +20,9 @@ const authError = (error) => {
   };
 };
 export const logout = () => {
+  localStorage.removeItem("burgerToken");
+  localStorage.removeItem("burgerExpDate");
+  localStorage.removeItem("burgerUserId");
   return {
     type: actionTypes.AUTH_LOGOUT,
   };
@@ -48,11 +51,42 @@ export const authorisation = (email, password, isSingUp) => {
     axios
       .post(url, authData)
       .then((response) => {
-        dispatch(authSuccess(response.data));
+        const burgerExpDate =
+          new Date().getTime() + response.data.expiresIn * 1000;
+        localStorage.setItem("burgerToken", response.data.idToken);
+        localStorage.setItem("burgerUserId", response.data.localId);
+        localStorage.setItem("burgerExpDate", burgerExpDate);
+        dispatch(authSuccess(response.data.idToken, response.data.localId));
         dispatch(checkAuthTimeout(response.data.expiresIn));
       })
       .catch((error) => {
         dispatch(authError(error.response.data.error));
       });
+  };
+};
+
+export const setAuthRedirectPath = (path) => {
+  return {
+    type: actionTypes.SET_AUTH_REDIRECT_PATH,
+    path: path,
+  };
+};
+
+export const authCheckState = () => {
+  return (dispatch) => {
+    const token = localStorage.getItem("burgerToken");
+    if (!token) {
+      return;
+    }
+    const expDate = new Date(+localStorage.getItem("burgerExpDate"));
+    if (expDate <= new Date()) {
+      dispatch(logout());
+      return;
+    }
+    const userId = localStorage.getItem("burgerUserId");
+    dispatch(
+      checkAuthTimeout((expDate.getTime() - new Date().getTime()) / 1000)
+    );
+    dispatch(authSuccess(token, userId));
   };
 };

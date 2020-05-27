@@ -9,4 +9,9 @@ export {
   fetchOrders,
   fetchDeleteOrder,
 } from "./order";
-export { authorisation, logout } from "./authorisation";
+export {
+  authorisation,
+  logout,
+  setAuthRedirectPath,
+  authCheckState,
+} from "./authorisation";

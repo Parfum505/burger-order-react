@@ -8,6 +8,7 @@ import Spinner from "../../../components/UI/Spinner/Spinner";
 import PropTypes from "prop-types";
 import Input from "../../../components/UI/Input/Input";
 import * as action from "../../../store/actions/index";
+import { updateObject, checkValidation } from "../../../store/utility";
 
 class ContactInfo extends Component {
   state = {
@@ -117,37 +118,20 @@ class ContactInfo extends Component {
     };
     this.props.onOrderBurger(order, this.props.token);
   };
-  checkValidation(value, rules) {
-    let isValid = true;
-    if (rules.required) {
-      isValid = value.trim() !== "" && isValid;
-    }
-    if (rules.minLength) {
-      isValid = value.length >= rules.minLength && isValid;
-    }
-    if (rules.maxLength) {
-      isValid = value.length <= rules.maxLength && isValid;
-    }
-    if (rules.isEmail) {
-      const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-      isValid = pattern.test(value) && isValid;
-    }
-    if (rules.isNumeric) {
-      const pattern = /^\d+$/;
-      isValid = pattern.test(value) && isValid;
-    }
-    return isValid;
-  }
   inputChangedHandler = (event, elementId) => {
-    const updatedForm = { ...this.state.orderForm };
-    const updatedFormElement = { ...updatedForm[elementId] };
-    updatedFormElement.value = event.target.value;
-    updatedFormElement.touched = true;
-    updatedFormElement.validation.valid = this.checkValidation(
-      updatedFormElement.value,
-      updatedFormElement.validation
-    );
-    updatedForm[elementId] = updatedFormElement;
+    const updatedFormElement = updateObject(this.state.orderForm[elementId], {
+      value: event.target.value,
+      touched: true,
+      validation: updateObject(this.state.orderForm[elementId].validation, {
+        valid: checkValidation(
+          event.target.value,
+          this.state.orderForm[elementId].validation
+        ),
+      }),
+    });
+    const updatedForm = updateObject(this.state.orderForm, {
+      [elementId]: updatedFormElement,
+    });
     let formIsValid = true;
     for (const elementId in updatedForm) {
       if (updatedForm[elementId].validation) {

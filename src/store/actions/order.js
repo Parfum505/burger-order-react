@@ -90,7 +90,6 @@ export const fetchDeleteOrder = (id, token) => {
     axios
       .delete("/orders/" + id + ".json?auth=" + token)
       .then((res) => {
-        console.log(res);
         if (res.status == 200) {
           dispatch(deleteOrder(id));
         }

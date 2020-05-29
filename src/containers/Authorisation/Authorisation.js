@@ -7,7 +7,7 @@ import * as actions from "../../store/actions";
 import { connect } from "react-redux";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import PropTypes from "prop-types";
-import { countIngredients } from "../../store/utility";
+import { countIngredients, updateObject, checkValidation } from "../../store/utility";
 
 class Authorisation extends Component {
   state = {
@@ -51,37 +51,21 @@ class Authorisation extends Component {
       this.props.setRiderectPath("/");
     }
   }
-  checkValidation(value, rules) {
-    let isValid = true;
-    if (rules.required) {
-      isValid = value.trim() !== "" && isValid;
-    }
-    if (rules.minLength) {
-      isValid = value.length >= rules.minLength && isValid;
-    }
-    if (rules.maxLength) {
-      isValid = value.length <= rules.maxLength && isValid;
-    }
-    if (rules.isEmail) {
-      const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-      isValid = pattern.test(value) && isValid;
-    }
-    if (rules.isNumeric) {
-      const pattern = /^\d+$/;
-      isValid = pattern.test(value) && isValid;
-    }
-    return isValid;
-  }
+  
   inputChangedHandler = (event, elementId) => {
-    const updatedForm = { ...this.state.controls };
-    const updatedFormElement = { ...updatedForm[elementId] };
-    updatedFormElement.value = event.target.value;
-    updatedFormElement.touched = true;
-    updatedFormElement.validation.valid = this.checkValidation(
-      updatedFormElement.value,
-      updatedFormElement.validation
-    );
-    updatedForm[elementId] = updatedFormElement;
+    const updatedFormElement = updateObject(this.state.controls[elementId], {
+      value: event.target.value,
+      touched: true,
+      validation: updateObject(this.state.controls[elementId].validation, {
+        valid: checkValidation(
+          event.target.value,
+          this.state.controls[elementId].validation
+        )
+      })
+    });
+    const updatedForm = updateObject(this.state.controls, {
+      [elementId]: updatedFormElement
+    });
     let formIsValid = true;
     for (const elementId in updatedForm) {
       if (updatedForm[elementId].validation) {
@@ -167,7 +151,7 @@ Authorisation.propTypes = {
   setRiderectPath: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   isAuth: PropTypes.bool.isRequired,
-  error: PropTypes.string,
+  error: PropTypes.object,
   authRedirectPath: PropTypes.string.isRequired,
   ingredients: PropTypes.object,
 };

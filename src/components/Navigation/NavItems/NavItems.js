@@ -6,7 +6,7 @@ import NavItem from "./NavItem/NavItem";
 import LoginIcon from "../../../assets/images/login.svg";
 import LogoutIcon from "../../../assets/images/logout.svg";
 
-const NavItems = (props) => (
+export const NavItems = (props) => (
   <ul className={classes.NavItems}>
     <NavItem link="/">Burger Builder</NavItem>
     {props.isAuth ? <NavItem link="/orders">Orders</NavItem> : null}

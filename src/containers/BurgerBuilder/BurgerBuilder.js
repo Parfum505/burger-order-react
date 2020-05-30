@@ -12,7 +12,7 @@ import PropTypes from "prop-types";
 import * as actions from "../../store/actions/index";
 import {countIngredients} from "../../store/utility";
 
-const BurgerBuilder = (props) => {
+export const BurgerBuilder = (props) => {
   const [buying, setBuying] = useState(false);
 
   useEffect(() => {

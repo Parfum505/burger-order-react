@@ -7,7 +7,7 @@ import * as actions from "../../../store/actions";
 const Logout = (props) => {
   useEffect(() => {
     props.logoutHandler();
-  });
+  }, []);
   return <Redirect to="/" />;
 };
 Logout.propTypes = {

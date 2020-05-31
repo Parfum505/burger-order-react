@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import Input from "../../components/UI/Input/Input";
 import Button from "../../components/UI/Button/Button";
@@ -7,64 +7,68 @@ import * as actions from "../../store/actions";
 import { connect } from "react-redux";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import PropTypes from "prop-types";
-import { countIngredients, updateObject, checkValidation } from "../../store/utility";
+import {
+  countIngredients,
+  updateObject,
+  checkValidation,
+} from "../../store/utility";
 
-class Authorisation extends Component {
-  state = {
-    controls: {
-      email: {
-        elementType: "input",
-        elementConfig: {
-          name: "email",
-          type: "email",
-          placeholder: "Your email",
-        },
-        value: "",
-        validation: {
-          required: true,
-          isEmail: true,
-          valid: false,
-        },
-        touched: false,
+const Authorisation = (props) => {
+  const initControls = {
+    email: {
+      elementType: "input",
+      elementConfig: {
+        name: "email",
+        type: "email",
+        placeholder: "Your email",
       },
-      password: {
-        elementType: "input",
-        elementConfig: {
-          name: "password",
-          type: "password",
-          placeholder: "Your password",
-        },
-        value: "",
-        validation: {
-          required: true,
-          minLength: 6,
-          valid: false,
-        },
-        touched: false,
+      value: "",
+      validation: {
+        required: true,
+        isEmail: true,
+        valid: false,
       },
+      touched: false,
     },
-    formIsValid: false,
-    isSingUp: false,
+    password: {
+      elementType: "input",
+      elementConfig: {
+        name: "password",
+        type: "password",
+        placeholder: "Your password",
+      },
+      value: "",
+      validation: {
+        required: true,
+        minLength: 6,
+        valid: false,
+      },
+      touched: false,
+    },
   };
-  componentDidMount() {
-    if (countIngredients(this.props.ingredients) === 0) {
-      this.props.setRiderectPath("/");
+  const [formIsValid, setFormIsValid] = useState(false);
+  const [isSingUp, setIsSingUp] = useState(false);
+  const [controls, setControls] = useState(initControls);
+
+  useEffect(() => {
+    if (countIngredients(props.ingredients) === 0) {
+      props.setRiderectPath("/");
     }
-  }
-  
-  inputChangedHandler = (event, elementId) => {
-    const updatedFormElement = updateObject(this.state.controls[elementId], {
+  }, []);
+
+  const inputChangedHandler = (event, elementId) => {
+    const updatedFormElement = updateObject(controls[elementId], {
       value: event.target.value,
       touched: true,
-      validation: updateObject(this.state.controls[elementId].validation, {
+      validation: updateObject(controls[elementId].validation, {
         valid: checkValidation(
           event.target.value,
-          this.state.controls[elementId].validation
-        )
-      })
+          controls[elementId].validation
+        ),
+      }),
     });
-    const updatedForm = updateObject(this.state.controls, {
-      [elementId]: updatedFormElement
+    const updatedForm = updateObject(controls, {
+      [elementId]: updatedFormElement,
     });
     let formIsValid = true;
     for (const elementId in updatedForm) {
@@ -72,79 +76,72 @@ class Authorisation extends Component {
         formIsValid = updatedForm[elementId].validation.valid && formIsValid;
       }
     }
-    this.setState({ controls: updatedForm, formIsValid: formIsValid });
+    setFormIsValid(formIsValid);
+    setControls(updatedForm);
   };
-  submitHandler = (event) => {
+  const submitHandler = (event) => {
     event.preventDefault();
-    this.props.onAuth(
-      this.state.controls.email.value,
-      this.state.controls.password.value,
-      this.state.isSingUp
-    );
+    props.onAuth(controls.email.value, controls.password.value, isSingUp);
   };
-  switchModeHandler = (event) => {
+  const switchModeHandler = (event) => {
     event.preventDefault();
-    this.setState((prevState) => {
-      return { isSingUp: !prevState.isSingUp };
-    });
+    setIsSingUp(!isSingUp);
   };
-  render() {
-    const formElementsArray = Object.entries(this.state.controls);
-    let form = (
-      <form action="" onSubmit={this.submitHandler}>
-        <Button btnType="SuccessBlue" clicked={this.switchModeHandler}>
-          {this.state.isSingUp ? (
-            <div>
-              <span className={classes.Dissabled}>SING&nbsp;IN</span>
-              &nbsp;/&nbsp;SING&nbsp;UP
-            </div>
-          ) : (
-            <div>
-              SING&nbsp;IN&nbsp;/&nbsp;
-              <span className={classes.Dissabled}>SING&nbsp;UP</span>
-            </div>
-          )}
-        </Button>
-        {formElementsArray.map((element) => (
-          <Input
-            key={element[0]}
-            elementType={element[1].elementType}
-            elementConfig={element[1].elementConfig}
-            value={element[1].value}
-            changed={(event) => this.inputChangedHandler(event, element[0])}
-            invalid={!element[1].validation.valid}
-            touched={element[1].touched}
-          />
-        ))}
-        <Button btnType="Success" disabled={!this.state.formIsValid}>
-          SUBMIT
-        </Button>
-      </form>
-    );
-    if (this.props.loading) {
-      form = <Spinner />;
-    }
-    let errorMessage = null;
-    if (this.props.error) {
-      errorMessage = (
-        <p className={classes.ErrorMessage}>
-          {this.props.error.message.split("_").join(" ")}
-        </p>
-      );
-    }
-    let authRedirect = null;
-    if (this.props.isAuth) {
-      authRedirect = <Redirect to={this.props.authRedirectPath} />;
-    }
-    return (
-      <div className={classes.Authorisation}>
-        {authRedirect}
-        {form}
-        {errorMessage}
-      </div>
+  const formElementsArray = Object.entries(controls);
+  let form = (
+    <form action="" onSubmit={submitHandler}>
+      <Button btnType="SuccessBlue" clicked={switchModeHandler}>
+        {isSingUp ? (
+          <div>
+            <span className={classes.Dissabled}>SING&nbsp;IN</span>
+            &nbsp;/&nbsp;SING&nbsp;UP
+          </div>
+        ) : (
+          <div>
+            SING&nbsp;IN&nbsp;/&nbsp;
+            <span className={classes.Dissabled}>SING&nbsp;UP</span>
+          </div>
+        )}
+      </Button>
+      {formElementsArray.map((element) => (
+        <Input
+          key={element[0]}
+          elementType={element[1].elementType}
+          elementConfig={element[1].elementConfig}
+          value={element[1].value}
+          changed={(event) => inputChangedHandler(event, element[0])}
+          invalid={!element[1].validation.valid}
+          touched={element[1].touched}
+        />
+      ))}
+      <Button btnType="Success" disabled={!formIsValid}>
+        SUBMIT
+      </Button>
+    </form>
+  );
+  if (props.loading) {
+    form = <Spinner />;
+  }
+  let errorMessage = null;
+  if (props.error) {
+    errorMessage = (
+      <p className={classes.ErrorMessage}>
+        {props.error.message.split("_").join(" ")}
+      </p>
     );
   }
-}
+  let authRedirect = null;
+  if (props.isAuth) {
+    authRedirect = <Redirect to={props.authRedirectPath} />;
+  }
+  return (
+    <div className={classes.Authorisation}>
+      {authRedirect}
+      {form}
+      {errorMessage}
+    </div>
+  );
+};
 
 Authorisation.propTypes = {
   onAuth: PropTypes.func.isRequired,

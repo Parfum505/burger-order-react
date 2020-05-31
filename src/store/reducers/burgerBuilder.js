@@ -26,13 +26,9 @@ const addIngredient = (state, action) => {
 };
 const removeIngredient = (state, action) => {
   let updatedCount = state.ingredients[action.ingredientName] - 1;
-  updatedCount = updatedCount < 0 ? 0 : updatedCount;
   const newPrice =
-    updatedCount > 0
-      ? (
-          state.totalPrice - INGREDIENT_PRICES[action.ingredientName]
-        ).toFixed(2) * 1
-      : state.totalPrice;
+    (state.totalPrice - INGREDIENT_PRICES[action.ingredientName]).toFixed(2) *
+    1;
   const updIngredient = {
     [action.ingredientName]: updatedCount,
   };

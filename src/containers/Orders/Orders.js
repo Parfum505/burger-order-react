@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import Order from "../../components/Order/Order";
 import classes from "./Orders.css";
 import axios from "../../axios-orders";
@@ -10,31 +10,30 @@ import Spinner from "../../components/UI/Spinner/Spinner";
 import TransitionGroup from "react-transition-group/TransitionGroup";
 import CSSTransition from "react-transition-group/CSSTransition";
 
-class Orders extends Component {
-  componentDidMount() {
-    this.props.onFetchOrders(this.props.token, this.props.userId);
+const Orders = (props) => {
+  useEffect(() => {
+    props.onFetchOrders(props.token, props.userId);
+  }, []);
+
+  let orders = null;
+  if (props.loading) {
+    orders = <Spinner />;
   }
-  render() {
-    let orders = null;
-    if (this.props.loading) {
-      orders = <Spinner />;
-    }
-    if (this.props.orders) {
-      orders = this.props.orders.length ? (
-        <TransitionGroup component="ul" className={classes.List}>
-          {this.props.orders.map((order) => (
-            <CSSTransition key={order.id} classNames="fade" timeout={300}>
-              <Order order={order} />
-            </CSSTransition>
-          ))}
-        </TransitionGroup>
-      ) : (
-        <p>You don&apos;t have any orders yet.</p>
-      );
-    }
-    return <div className={classes.Orders}>{orders}</div>;
+  if (props.orders) {
+    orders = props.orders.length ? (
+      <TransitionGroup component="ul" className={classes.List}>
+        {props.orders.map((order) => (
+          <CSSTransition key={order.id} classNames="fade" timeout={300}>
+            <Order order={order} />
+          </CSSTransition>
+        ))}
+      </TransitionGroup>
+    ) : (
+      <p>You don&apos;t have any orders yet.</p>
+    );
   }
-}
+  return <div className={classes.Orders}>{orders}</div>;
+};
 Orders.propTypes = {
   onFetchOrders: PropTypes.func.isRequired,
   orders: PropTypes.array,

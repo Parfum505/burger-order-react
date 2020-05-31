@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions";
 import Auxil from "../Auxiliary";
@@ -7,31 +7,30 @@ import Toolbar from "../../components/Navigation/Toolbar/Toolbar";
 import SideMenu from "../../components/Navigation/SideMenu/SideMenu";
 import PropTypes from "prop-types";
 
-class Layout extends Component {
-  state = {
-    showMobileMenu: false,
+const Layout = (props) => {
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
+
+  useEffect(() => {
+    props.onTryAutoSingIn();
+  }, []);
+
+  const closeMobileMenuHandler = () => {
+    setShowMobileMenu(false);
   };
-  componentDidMount() {
-    this.props.onTryAutoSingIn();
-  }
-  closeMobileMenuHandler = () => {
-    this.setState({ showMobileMenu: false });
+  const openMobileMenuHandler = () => {
+    setShowMobileMenu(true);
   };
-  openMobileMenuHandler = () => {
-    this.setState({ showMobileMenu: true });
-  };
-  render() {
+
     return (
       <Auxil>
-        <Toolbar openMenu={this.openMobileMenuHandler} />
+        <Toolbar openMenu={openMobileMenuHandler} />
         <SideMenu
-          show={this.state.showMobileMenu}
-          closeMenu={this.closeMobileMenuHandler}
+          show={showMobileMenu}
+          closeMenu={closeMobileMenuHandler}
         />
-        <main className={classes.Content}>{this.props.children}</main>
+        <main className={classes.Content}>{props.children}</main>
       </Auxil>
     );
-  }
 }
 Layout.propTypes = {
   children: PropTypes.any,

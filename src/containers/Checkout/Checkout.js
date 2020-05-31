@@ -1,50 +1,44 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import CheckoutSummary from "../../components/Order/CheckoutSummary/CheckoutSummary";
 import { Route, Redirect } from "react-router-dom";
 import ContactInfo from "./ContactInfo/ContactInfo";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-class Checkout extends Component {
-  state = {
-    activeContactInfo: false,
+const Checkout = (props) => {
+  const [activeContactInfo, setActiveContactInfo] = useState(false);
+
+  const checkoutCancelHandler = () => {
+    setActiveContactInfo(false);
+    props.history.goBack();
+  };
+  const checkoutContinueHandler = () => {
+    setActiveContactInfo(true);
+    props.history.replace("/checkout/contact-info");
   };
 
-  checkoutCancelHandler = () => {
-    this.setState({ activeContactInfo: false });
-    this.props.history.goBack();
-  };
-  checkoutContinueHandler = () => {
-    this.setState({ activeContactInfo: true });
-    this.props.history.replace("/checkout/contact-info");
-  };
-
-  render() {
-    let summary = <Redirect to="/" />;
-    if (this.props.ingredients) {
-      const purchaseRedirect = this.props.purchased ? (
-        <Redirect to="/" />
-      ) : null;
-      summary = (
-        <>
-          {purchaseRedirect}
-          <CheckoutSummary
-            ingredients={this.props.ingredients}
-            checkoutCancel={this.checkoutCancelHandler}
-            checkoutContinue={this.checkoutContinueHandler}
-            totalPrice={this.props.totalPrice}
-            activeContactInfo={this.state.activeContactInfo}
-          />
-          <Route
-            path={this.props.match.path + "/contact-info"}
-            component={ContactInfo}
-          />
-        </>
-      );
-    }
-    return summary;
+  let summary = <Redirect to="/" />;
+  if (props.ingredients) {
+    const purchaseRedirect = props.purchased ? <Redirect to="/" /> : null;
+    summary = (
+      <>
+        {purchaseRedirect}
+        <CheckoutSummary
+          ingredients={props.ingredients}
+          checkoutCancel={checkoutCancelHandler}
+          checkoutContinue={checkoutContinueHandler}
+          totalPrice={props.totalPrice}
+          activeContactInfo={activeContactInfo}
+        />
+        <Route
+          path={props.match.path + "/contact-info"}
+          component={ContactInfo}
+        />
+      </>
+    );
   }
-}
+  return summary;
+};
 Checkout.propTypes = {
   match: PropTypes.any,
   history: PropTypes.any,

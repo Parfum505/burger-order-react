@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "454fcbae79586cb25932240972272753",
+    "revision": "86383efbeb253659c781e187cfbef77d",
     "url": "/burger-order-react/index.html"
   },
   {
-    "revision": "6da614be53b33055a361",
+    "revision": "57cf77dc918241cfad23",
     "url": "/burger-order-react/static/css/main.f9c831c4.chunk.css"
   },
   {
-    "revision": "1aae0f1eabd18f08d55d",
-    "url": "/burger-order-react/static/js/2.67b7f130.chunk.js"
+    "revision": "413ad63cb30f4ece1b0e",
+    "url": "/burger-order-react/static/js/2.2949476a.chunk.js"
   },
   {
     "revision": "c64c486544348f10a6d6c716950bc223",
-    "url": "/burger-order-react/static/js/2.67b7f130.chunk.js.LICENSE.txt"
+    "url": "/burger-order-react/static/js/2.2949476a.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "6da614be53b33055a361",
-    "url": "/burger-order-react/static/js/main.a3e756c2.chunk.js"
+    "revision": "57cf77dc918241cfad23",
+    "url": "/burger-order-react/static/js/main.f02a6be4.chunk.js"
   },
   {
     "revision": "5b9e1e0f9a082f6efaed",

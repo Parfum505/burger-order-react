@@ -46,7 +46,7 @@ export const BurgerBuilder = (props) => {
 
   const errorStyle = {
     textAlign: "center",
-    marginTop: 90,
+    margin: "90px auto 20px",
     color: "red",
     fontWeight: "bold",
   };
